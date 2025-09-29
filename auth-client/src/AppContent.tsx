@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
 import AdminDashboard from './components/AdminDashboard';
 import GoogleCallback from './components/GoogleCallback';
+import Navbar from './components/Navbar';
 
 const AppContent: React.FC = () => {
   const { isAuthenticated, logout, user, loading } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const AppContent: React.FC = () => {
 
   return (
     <div>
-
+      {isAuthenticated && <Navbar />}
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
@@ -37,11 +38,6 @@ const AppContent: React.FC = () => {
           element={isAuthenticated ? (user?.role === 'ADMIN' ? <AdminDashboard /> : <Dashboard />) : <Login />}
         />
       </Routes>
-      {isAuthenticated && (
-        <footer>
-          <button onClick={logout} className="button button-danger">Logout</button>
-        </footer>
-      )}
     </div>
   );
 };

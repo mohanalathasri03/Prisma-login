@@ -16,6 +16,13 @@ body {
   padding: 20px;
 }
 
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 /* Navigation Bar */
 nav {
   background-color: #fff;
@@ -52,14 +59,43 @@ nav button:hover {
   background-color: #c82333;
 }
 
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-menu .dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 150px;
+}
+
+.user-menu .dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.user-menu .dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
 /* Forms */
 .form {
-  background-color: #fff;
+  background-color: #f7f7f7;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   margin: 20px auto;
+  width: 800px;
 }
 
 .form h2 {
@@ -219,4 +255,82 @@ footer button {
   margin: 0 10px;
   font-size: 14px;
   color: #666;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-strength-indicator {
+  height: 5px;
+  width: 100%;
+  background-color: #eee;
+  margin-top: 5px;
+}
+
+.strength-bar {
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.strength-0 {
+  width: 0%;
+  background-color: #eee;
+}
+
+.strength-1 {
+  width: 20%;
+  background-color: #dc3545;
+}
+
+.strength-2 {
+  width: 40%;
+  background-color: #ffc107;
+}
+
+.strength-3 {
+  width: 60%;
+  background-color: #ffc107;
+}
+
+.strength-4 {
+  width: 80%;
+  background-color: #28a745;
+}
+
+.strength-5 {
+  width: 100%;
+  background-color: #28a745;
+}
+.google-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.google-login-btn:hover {
+  background-color: #e8f0fe; /* light blue */
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
 }

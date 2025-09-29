@@ -18,6 +18,8 @@ interface AuthContextType {
   isAdmin: boolean;
   setAuthToken: (token: string | null) => void;
   getProfile: () => Promise<User | null>;
+  isGoogleLogin: boolean;
+  setIsGoogleLogin: (isGoogleLogin: boolean) => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -30,12 +32,15 @@ export const AuthContext = createContext<AuthContextType>({
   isAdmin: false,
   setAuthToken: () => {},
   getProfile: async () => null,
+  isGoogleLogin: false,
+  setIsGoogleLogin: () => {},
 });
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isGoogleLogin, setIsGoogleLogin] = useState<boolean>(false);
   const isAdmin = user?.role === 'ADMIN';
 
   useEffect(() => {
@@ -76,6 +81,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const response = await api.post('/auth/login', { email, password });
     const { access_token } = response.data;
     setAuthToken(access_token);
+    setIsGoogleLogin(false);
     const user = await getProfile();
     return user;
   };
@@ -84,11 +90,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     await api.post('/auth/register', { email, password, role });
   };
 
-  const logout = () => {
-    setAuthToken(null);
-    setUser(null);
+  const logout = async () => {
+    try {
+      await api.post('/auth/logout');
+    } catch (error) {
+      console.error('Failed to logout:', error);
+    } finally {
+      setAuthToken(null);
+      setUser(null);
+    }
   };
-
   return (
     <AuthContext.Provider
       value={{
@@ -101,6 +112,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         isAdmin,
         setAuthToken,
         getProfile,
+        isGoogleLogin,
+        setIsGoogleLogin,
       }}
     >
       {children}
