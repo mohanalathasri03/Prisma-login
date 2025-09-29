@@ -13,7 +13,7 @@ const AppContent: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && !isAuthenticated && window.location.pathname !== '/register' && window.location.pathname !== '/google/callback') {
+    if (!loading && !isAuthenticated && !window.location.pathname.includes('/google/callback') && window.location.pathname !== '/register') {
       navigate('/login');
     }
   }, [isAuthenticated, loading, navigate]);

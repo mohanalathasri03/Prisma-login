@@ -1,8 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 const Profile: React.FC = () => {
-  const { user } = useContext(AuthContext);
+  const { user, getProfile } = useContext(AuthContext);
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   if (!user) {
     return <div>Loading...</div>;

@@ -29,7 +29,7 @@ export class AuthService {
   async googleLogin(req, @Res() res) {
     if (!req.user) {
       console.error('No user from google');
-      return res.redirect('http://localhost:3001/login');
+      return res.redirect('http://localhost:3002/login');
     }
 
     console.log('User from google:', req.user);
@@ -45,11 +45,10 @@ export class AuthService {
       const token = this.jwtService.sign(payload);
       console.log('JWT token:', token);
 
-      res.cookie('access_token', token, { httpOnly: true });
-      return res.redirect('http://localhost:3001/dashboard');
+      return res.redirect(`http://localhost:3002/google/callback?token=${token}`);
     } catch (error) {
       console.error('Error in googleLogin:', error);
-      return res.redirect('http://localhost:3001/login');
+      return res.redirect('http://localhost:3002/login');
     }
   }
 }

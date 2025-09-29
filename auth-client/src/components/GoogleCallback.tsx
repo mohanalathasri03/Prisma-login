@@ -1,24 +1,24 @@
 
 import React, { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const GoogleCallback: React.FC = () => {
-  const { getProfile } = useContext(AuthContext);
+  const { setAuthToken } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const user = await getProfile();
-      if (user) {
-        navigate('/dashboard');
-      } else {
-        navigate('/login');
-      }
-    };
+    const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get('token');
 
-    fetchProfile();
-  }, [getProfile, navigate]);
+    if (token) {
+      setAuthToken(token);
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  }, [location.search, setAuthToken, navigate]);
 
   return <div>Loading...</div>;
 };
