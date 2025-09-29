@@ -1,26 +1,42 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, Logout, LockReset } from '@mui/icons-material';
 
 const Navbar: React.FC = () => {
   const { user, logout, isGoogleLogin } = useContext(AuthContext);
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();
+
+  const handleResetPassword = () => {
+    navigate('/reset-password');
+    setShowMenu(false); // Close menu after navigation
+  };
 
   return (
     <nav>
       <Link to="/">Home</Link>
       {user && (
         <div className="user-menu">
-          <AccountCircle onClick={() => setShowMenu(!showMenu)} />
+          <AccountCircle onClick={() => setShowMenu(!showMenu)} fontSize="large" />
           <span>{user.email}</span>
           {showMenu && (
             <div className="dropdown-menu">
               <ul>
-                <li><button onClick={logout}>Logout</button></li>
                 {!isGoogleLogin && (
-                  <li><Link to="/reset-password">Reset Password</Link></li>
+                  <li>
+                    <button onClick={handleResetPassword}>
+                      <LockReset />
+                      <span>Reset Password</span>
+                    </button>
+                  </li>
                 )}
+                <li>
+                  <button onClick={logout}>
+                    <Logout />
+                    <span>Logout</span>
+                  </button>
+                </li>
               </ul>
             </div>
           )}

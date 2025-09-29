@@ -46,8 +46,8 @@ nav a:hover {
 }
 
 nav button {
-  background-color: #dc3545;
-  color: white;
+  background-color: transparent;
+  color: #555;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
@@ -56,7 +56,7 @@ nav button {
 }
 
 nav button:hover {
-  background-color: #c82333;
+  background-color: #f0f0f0;
 }
 
 .user-menu {
@@ -75,7 +75,13 @@ nav button:hover {
   list-style: none;
   padding: 0;
   margin: 0;
-  width: 150px;
+  width: 200px;
+}
+
+.user-menu .dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .user-menu .dropdown-menu li {
@@ -85,6 +91,23 @@ nav button:hover {
 
 .user-menu .dropdown-menu li:hover {
   background-color: #f0f0f0;
+}
+
+.user-menu .dropdown-menu li button,
+.user-menu .dropdown-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  outline: inherit;
+  padding: 0;
+  text-decoration: none;
 }
 
 /* Forms */
